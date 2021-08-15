@@ -17,36 +17,36 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages="com.zacktcheng.signupsheet")
 public class SignupSheetAppConfig implements WebMvcConfigurer {
 
-	private final String CLEARDB_PartySignupSheet_Username = System.getenv("CLEARDB_PartySignupSheet_Username");
-	private final String CLEARDB_PartySignupSheet_Password = System.getenv("CLEARDB_PartySignupSheet_Password");
-	
-	@Bean
-	InternalResourceViewResolver viewResolver() {
-		
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setPrefix("WEB-INF/view/");
-		viewResolver.setSuffix(".jsp");
-		return viewResolver;
-	}
-	
-	@Bean
-	JdbcTemplate jdbcTemplate() {
-		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
-		return jdbcTemplate;
-	}
-	
-	@Bean
-	public DataSource dataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setUsername(CLEARDB_PartySignupSheet_Username);
-		dataSource.setPassword(CLEARDB_PartySignupSheet_Password);
-		dataSource.setUrl("jdbc:mysql://us-cdbr-east-04.cleardb.com:3306/heroku_b7898bf0cee6a84?useSSL=false");
-		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		return dataSource;
-	}
-	
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/addedResourceHandler/**").addResourceLocations("/");
-	}
+    private final String CLEARDB_PartySignupSheet_Username = System.getenv("CLEARDB_PartySignupSheet_Username");
+    private final String CLEARDB_PartySignupSheet_Password = System.getenv("CLEARDB_PartySignupSheet_Password");
+    
+    @Bean
+    InternalResourceViewResolver viewResolver() {
+        
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("WEB-INF/view/");
+        viewResolver.setSuffix(".jsp");
+        return viewResolver;
+    }
+    
+    @Bean
+    JdbcTemplate jdbcTemplate() {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+        return jdbcTemplate;
+    }
+    
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setUsername(CLEARDB_PartySignupSheet_Username);
+        dataSource.setPassword(CLEARDB_PartySignupSheet_Password);
+        dataSource.setUrl("jdbc:mysql://us-cdbr-east-04.cleardb.com:3306/heroku_b7898bf0cee6a84?useSSL=false");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        return dataSource;
+    }
+    
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/addedResourceHandler/**").addResourceLocations("/");
+    }
 }

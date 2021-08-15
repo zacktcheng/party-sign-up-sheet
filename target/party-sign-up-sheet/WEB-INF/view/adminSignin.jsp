@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <title>Party Sign-up Sheet</title>
-<link rel="stylesheet" type="text/css" href="/part-sign-up-sheet/addedResourceHandler/styles/main.css"/>
+<link rel="stylesheet" type="text/css" href="/party-sign-up-sheet/addedResourceHandler/styles/main.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Sriracha&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
         <br>
         <input type="submit" value="Submit">
         <p style="color: #ccccc6">&#8212; or &#8212;</p>
-        <a class="update-btn" href="/student-management">Continue as Attendee</a>
+        <a class="update-btn" href="/party-sign-up-sheet">Continue as Attendee</a>
       </form:form>
     </section>  
   </header>

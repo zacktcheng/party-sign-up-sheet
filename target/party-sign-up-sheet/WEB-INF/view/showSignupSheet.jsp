@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <title>Party Sign-up Sheet</title>
-<link rel="stylesheet" type="text/css" href="/part-sign-up-sheet/addedResourceHandler/styles/main.css"/>
+<link rel="stylesheet" type="text/css" href="/party-sign-up-sheet/addedResourceHandler/styles/main.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Sriracha&display=swap" rel="stylesheet">
@@ -35,18 +35,18 @@
   </header>
   <main>
     <section class="verification">
-      <form action="/student-management/addAttendee">
+      <form action="/party-sign-up-sheet/addAttendee">
         <input type="submit" value="Add New Attendee" class="add-button"/>
       </form>
       <c:set var="isAdmin" scope="session" value="${user.validInBinary}"/>
       <c:if test="${isAdmin == 0}">
-        <form action="/student-management/adminSignin">
+        <form action="/party-sign-up-sheet/adminSignin">
           <input type="submit" value="Sign-in as Admin to Delete Rows"/>
         </form>
       </c:if>
       <c:set var="isAdmin" scope="session" value="${user.validInBinary}"/>
       <c:if test="${isAdmin > 0}">
-        <form action="/student-management/adminSignout">
+        <form action="/party-sign-up-sheet/adminSignout">
           <input type="submit" value="Sign-out"/>
         </form>
       </c:if>
@@ -66,12 +66,12 @@
           <span class="column" style="line-height: 1;">${attendee.bringing}</span>
           <span class="column">${attendee.mobilePreview}</span>
           <span class="column" style="line-height: 1">${attendee.note}</span>
-          <a class="update-btn" href="/student-management/verifyAttendee?AttendeeId=${attendee.id}&AttendeeMobile=${attendee.mobile}">
+          <a class="update-btn" href="/party-sign-up-sheet/verifyAttendee?AttendeeId=${attendee.id}&AttendeeMobile=${attendee.mobile}">
             Update
           </a>
           <c:set var="isAdmin" scope="session" value="${user.validInBinary}"/>
           <c:if test="${isAdmin > 0}">
-            <a class="delete-btn" href="/student-management/deleteAttendee?AttendeeId=${attendee.id}" 
+            <a class="delete-btn" href="/party-sign-up-sheet/deleteAttendee?AttendeeId=${attendee.id}" 
               onclick="if(!(confirm('Are you sure to delete this attendee?'))) return false"
               style="display: ${deleteHyperlinkDisplay};">Delete
             </a>

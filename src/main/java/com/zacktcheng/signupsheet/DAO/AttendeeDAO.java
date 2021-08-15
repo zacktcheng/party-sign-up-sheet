@@ -6,13 +6,13 @@ import com.zacktcheng.signupsheet.api.Attendee;
 
 public interface AttendeeDAO {
 
-	List<Attendee> loadAttendees();
-	
+    List<Attendee> loadAttendees();
+    
     void saveAttendee(Attendee attendee);
     
     Attendee getAttendee(int id);
 
-	void updateAttendee(Attendee attendee);
+    void updateAttendee(Attendee attendee);
 
-	void deleteAttendee(int id);
+    void deleteAttendee(int id);
 }
