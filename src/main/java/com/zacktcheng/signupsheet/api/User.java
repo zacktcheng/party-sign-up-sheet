@@ -1,5 +1,8 @@
 package com.zacktcheng.signupsheet.api;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class User {
 
     private static final String PATTERN = System.getenv("PartySignupSheetAdminPassword");

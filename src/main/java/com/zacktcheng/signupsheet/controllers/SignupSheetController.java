@@ -18,7 +18,10 @@ public class SignupSheetController {
 
     @Autowired
     private AttendeeService attendeeService;
-    private User user = new User();
+    
+    @Autowired
+    private User user;
+    
     private int attendeeId;
     private String attendeeMobile;
     
@@ -28,13 +31,7 @@ public class SignupSheetController {
             model.addAttribute("user", user);
         }
         List<Attendee> attendees = attendeeService.loadAttendees();
-        for (Attendee attendee : attendees) {
-            if (!user.isInputPasswordValid()) {
-                attendee.setMobilePreview("(xxx)-xxx-" + attendee.getMobile().substring(6));
-            } else {
-                attendee.setMobilePreview(attendee.getMobile());
-            }
-        }
+        attendeeService.setMobilePreviews(attendees, user.isInputPasswordValid());
         model.addAttribute("attendees", attendees);
         return "showSignupSheet";
     }
@@ -71,19 +68,15 @@ public class SignupSheetController {
     @PostMapping("/updateSignupSheet")
     public String updateSignupSheet(Attendee attendee, Model model) {
         System.out.println(attendee);
-        if (attendee.getMobile() == null 
-                || attendee.getMobile().trim().length() != 10 
-                || !attendee.getMobile().matches("[0-9]+")
-                || attendee.getName() == null 
-                || attendee.getName().trim().isEmpty()) {
-            return "updateSignupSheet";
+        if (attendeeService.isAttendeeInfoValid(attendee)) {
+        	if (attendee.getId() == 0) {
+                attendeeService.saveAttendee(attendee);
+            } else {
+                attendeeService.updateAttendee(attendee);
+            }
+        	return "redirect:/";	
         }
-        if (attendee.getId() == 0) {
-            attendeeService.saveAttendee(attendee);
-        } else {
-            attendeeService.updateAttendee(attendee);
-        }
-        return "redirect:/";
+        return "updateSignupSheet";
     }
     
     @GetMapping("/verifyAttendee")

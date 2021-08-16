@@ -24,9 +24,9 @@ public class AttendeeDAOImplementation implements AttendeeDAO {
 
     @Override
     public void saveAttendee(Attendee attendee) {
-        Object[] sqlParameters = {attendee.getName(), attendee.getQuantity(), attendee.getBringing(), attendee.getMobile(), attendee.getEmail(), attendee.getNote()};
+        Object[] sqlParameters = {attendee.getName(), attendee.getQuantity(), attendee.getBringing(), attendee.getMobile(), attendee.getNote()};
         System.out.println("id: " + attendee.getId());
-        String sql = "INSERT INTO attendees (name, quantity, bringing, mobile, email, note) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO attendees (name, quantity, bringing, mobile, note) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, sqlParameters);
         System.out.println("1 record inserted.");
     }
@@ -40,8 +40,8 @@ public class AttendeeDAOImplementation implements AttendeeDAO {
 
     @Override
     public void updateAttendee(Attendee attendee) {
-        String sql = "UPDATE attendees SET name=?, quantity=?, bringing=?, mobile=?, email=?, note=? WHERE id=?";
-        jdbcTemplate.update(sql, attendee.getName(), attendee.getQuantity(), attendee.getBringing(), attendee.getMobile(), attendee.getEmail(), attendee.getNote(), attendee.getId());
+        String sql = "UPDATE attendees SET name=?, quantity=?, bringing=?, mobile=?, note=? WHERE id=?";
+        jdbcTemplate.update(sql, attendee.getName(), attendee.getQuantity(), attendee.getBringing(), attendee.getMobile(), attendee.getNote(), attendee.getId());
         System.out.println("1 record updated.");
     }
 

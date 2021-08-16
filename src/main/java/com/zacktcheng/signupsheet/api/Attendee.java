@@ -4,10 +4,9 @@ public class Attendee {
 
     private int id;
     private String name;
-    private int quantity = 1;
+    private String quantity = "1";
     private String bringing;
     private String mobile;
-    private String email;
     private String note;
     private String mobilePreview;
     
@@ -23,10 +22,10 @@ public class Attendee {
     public void setName(String name) {
         this.name = name;
     }
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
     public String getBringing() {
@@ -40,12 +39,6 @@ public class Attendee {
     }
     public void setMobile(String mobile) {
         this.mobile = mobile;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
     }
     public String getNote() {
         return note;
@@ -62,6 +55,6 @@ public class Attendee {
     @Override
     public String toString() {
         return "Attendee [id=" + id + ", name=" + name + ", quantity=" + quantity + ", bringing=" + bringing
-                + ", mobile=" + mobile + ", email=" + email + ", note=" + note + "]";
+                + ", mobile=" + mobile + ", note=" + note + "]";
     }
 }

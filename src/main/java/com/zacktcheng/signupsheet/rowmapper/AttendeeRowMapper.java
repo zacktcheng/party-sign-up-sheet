@@ -14,10 +14,9 @@ public class AttendeeRowMapper implements RowMapper<Attendee> {
         Attendee attendee = new Attendee();
         attendee.setId(rs.getInt("id"));
         attendee.setName(rs.getString("name"));
-        attendee.setQuantity(rs.getInt("quantity"));
+        attendee.setQuantity(rs.getString("quantity"));
         attendee.setBringing(rs.getString("bringing"));
         attendee.setMobile(rs.getString("mobile"));
-        attendee.setEmail(rs.getString("email"));
         attendee.setNote(rs.getString("note"));
         return attendee;
     }

@@ -15,4 +15,8 @@ public interface AttendeeService {
     void updateAttendee(Attendee attendee);
 
     void deleteAttendee(int id);
+    
+    boolean isAttendeeInfoValid(Attendee attendee);
+    
+    void setMobilePreviews(List<Attendee> attendees, boolean isAdmin);
 }

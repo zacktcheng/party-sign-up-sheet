@@ -51,7 +51,6 @@ header > section > article {
   margin: 0 0.5rem;
   padding: 0.5rem;
   border-radius: 1rem;
-  text-align: center;
   background: #655c8b;
 }
 
@@ -65,15 +64,12 @@ main {
   border-radius: 1rem;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-  overflow: auto;
 }
 
-.table {
-  width: calc(1000px - 2rem);
+.signup-sheet {
   margin: auto;
-  padding: 0.125rem;
-  background: #655c8b;
-  border-radius: 0.25rem;
+  overflow-x: auto;
+  width: calc(1000px - 2rem);
 }
 
 .verification {
@@ -182,3 +178,30 @@ footer {
   color: #ccccc6;
   text-align: center;
 }
+
+@media screen and (max-width: 1000px) {
+  header {
+    border-radius: 0;
+  }
+  
+  header > section {
+    display: block;
+  }
+  
+  header > section > article {
+    width: auto;
+    margin: 0.5rem;
+  }
+  
+  main {
+    border-radius: 0;
+  }
+  
+  .signup-sheet {
+    width: 95%;
+  }
+  
+  .table {
+    width: calc(1000px - 2rem);
+  }
+} 
