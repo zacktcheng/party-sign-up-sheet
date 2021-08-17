@@ -8,6 +8,7 @@ public class User {
     private static final String PATTERN = System.getenv("PartySignupSheetAdminPassword");
     private String password;
     private int validInBinary;
+    private String errorMsg = "";
     
     public String getPassword() {
         return password;
@@ -24,4 +25,10 @@ public class User {
     public boolean isInputPasswordValid() {
         return (password != null && password.equals(PATTERN)) ? true : false;
     }
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
+	}
 }

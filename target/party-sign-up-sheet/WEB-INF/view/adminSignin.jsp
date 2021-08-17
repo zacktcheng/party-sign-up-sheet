@@ -28,7 +28,9 @@
         <p style="color: #ccccc6">&#8212; or &#8212;</p>
         <a class="update-btn" href="/">Continue as Attendee</a>
       </form:form>
-    </section>  
+    </section>
+    <c:set var="errorMsg" scope="session" value="${user.errorMsg}"/>  
+    <c:out value="${errorMsg}"/> 
   </header>
   <footer>&#169; Zack Cheng 2021 &#124; &#9993; zacktcheng@gmail.com</footer>
 </body>

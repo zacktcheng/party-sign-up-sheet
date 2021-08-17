@@ -45,7 +45,6 @@
           <input type="submit" value="Sign-in as Admin to Delete Rows"/>
         </form>
       </c:if>
-      <c:set var="isAdmin" scope="session" value="${user.validInBinary}"/>
       <c:if test="${isAdmin > 0}">
         <form action="/adminSignout">
           <input type="submit" value="Sign-out"/>

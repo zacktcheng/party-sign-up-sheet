@@ -3,6 +3,7 @@ package com.zacktcheng.signupsheet.service;
 import java.util.List;
 
 import com.zacktcheng.signupsheet.api.Attendee;
+import com.zacktcheng.signupsheet.api.User;
 
 public interface AttendeeService {
 
@@ -16,7 +17,7 @@ public interface AttendeeService {
 
     void deleteAttendee(int id);
     
-    boolean isAttendeeInfoValid(Attendee attendee);
+    boolean isAttendeeInfoValid(Attendee attendee, User user);
     
     void setMobilePreviews(List<Attendee> attendees, boolean isAdmin);
 }

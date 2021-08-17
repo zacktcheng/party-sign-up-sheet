@@ -3,6 +3,7 @@ package com.zacktcheng.signupsheet.DAO;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -50,5 +51,16 @@ public class AttendeeDAOImplementation implements AttendeeDAO {
         String sql = "DELETE FROM attendees WHERE id=?";
         jdbcTemplate.update(sql, id);
         System.out.println("1 record deleted.");
+    }
+    
+    @Override
+    public boolean hasMobileExisted(String mobile) {
+        String sql = "SELECT * FROM attendees WHERE mobile=?";
+    	try {
+    	    jdbcTemplate.queryForObject(sql, new AttendeeRowMapper(), mobile);
+        } catch (EmptyResultDataAccessException e) {
+    	    return false;
+        }
+        return true;
     }
 }

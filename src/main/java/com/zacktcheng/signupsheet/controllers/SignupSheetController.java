@@ -45,7 +45,9 @@ public class SignupSheetController {
     
     @GetMapping("/adminSignin")
     public String adminSignin(Model model) {
-        model.addAttribute("user", user);
+    	if (!model.containsAttribute("user")) {
+            model.addAttribute("user", user);
+        }
         return "adminSignin";
     }
     
@@ -54,8 +56,10 @@ public class SignupSheetController {
         if (tempUser.isInputPasswordValid()) {
             user.setPassword(tempUser.getPassword());
             user.setValidInBinary();
+            user.setErrorMsg("");
             return "redirect:/";
         }
+        user.setErrorMsg("Incorrect password. Please try again.");
         return "adminSignin";
     }
     
@@ -68,7 +72,7 @@ public class SignupSheetController {
     @PostMapping("/updateSignupSheet")
     public String updateSignupSheet(Attendee attendee, Model model) {
         System.out.println(attendee);
-        if (attendeeService.isAttendeeInfoValid(attendee)) {
+        if (attendeeService.isAttendeeInfoValid(attendee, user)) {
         	if (attendee.getId() == 0) {
                 attendeeService.saveAttendee(attendee);
             } else {
@@ -99,6 +103,7 @@ public class SignupSheetController {
             model.addAttribute("attendee", attendeeToUpdate);
             return "updateSignupSheet";
         }
+        user.setErrorMsg("Incorrect phone number. Please try again.");
         return "verifyAttendee";
     }
     

@@ -15,4 +15,6 @@ public interface AttendeeDAO {
     void updateAttendee(Attendee attendee);
 
     void deleteAttendee(int id);
+    
+    boolean hasMobileExisted(String mobile);
 }
