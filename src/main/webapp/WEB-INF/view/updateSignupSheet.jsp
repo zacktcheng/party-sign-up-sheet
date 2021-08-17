@@ -41,8 +41,8 @@
         <a class="update-btn" href="/">Go Back</a>
       </form:form>
     </section>
-    <c:set var="message" scope="session" value="${user.errorMsg}"/>
-    <c:out value="${'<p>${message}</p>'}" escapeXml="false"/>
+    <c:set var="errorMsg" scope="session" value="${user.errorMsg}"/>  
+    <p style="color: red"><c:out value="${errorMsg}"/></p>
   </header>
   <footer>&#169; Zack Cheng 2021 &#124; &#9993; zacktcheng@gmail.com</footer>
 </body>

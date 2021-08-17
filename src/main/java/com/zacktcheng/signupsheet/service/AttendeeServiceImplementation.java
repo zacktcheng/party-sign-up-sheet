@@ -41,35 +41,12 @@ public class AttendeeServiceImplementation implements AttendeeService {
     }
     
     @Override
-    public boolean isAttendeeInfoValid(Attendee attendee, User user) {
-        if (attendee.getName() == null || attendee.getName().trim().isEmpty()) {
-            user.setErrorMsg("Attendee's name cannot be empty.");
-            return false;
-        }
-        if (attendee.getMobile() != null) {
-            String number = attendee.getMobile();
-            if (!number.matches("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$")) {
-            	user.setErrorMsg("Attendee's phone number is not valid in USA.");
-            	return false;
-            } else if (attendeeDAO.hasMobileExisted(number)) {
-            	user.setErrorMsg("This phone number is currently used on the sign-up sheet, please try another one.");
-            	return false;	
-            }
-        } 
-        else {
-            user.setErrorMsg("Attendee's phone number cannot be empty.");
-            return false;
-        }
-        
-        if (attendee.getQuantity() != null) {
-            int quantity = Integer.parseInt(attendee.getQuantity());
-            if (1 <= quantity && quantity <= 5) {
-            	user.setErrorMsg("");
-            	return true;
-            }
-        }
-        user.setErrorMsg("Please enter a valid quantity of people.");
-        return false;
+    public boolean isAttendeeInfoValid(Attendee attendee, User user, String previousMobile) {
+        if (!isNameValid(attendee, user)) return false;
+        if (!isMobileValid(attendee, user, previousMobile)) return false;
+        if (!isQuantityValid(attendee, user)) return false;
+        user.setErrorMsg("");
+        return true;
     }
     
     @Override
@@ -90,5 +67,44 @@ public class AttendeeServiceImplementation implements AttendeeService {
                 }
             }
         }
+    }
+    
+    private boolean isNameValid(Attendee attendee, User user) {
+        if (attendee.getName() == null || attendee.getName().trim().isEmpty()) {
+            user.setErrorMsg("Attendee's name cannot be empty.");
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean isMobileValid(Attendee attendee, User user, String previousMobile) {
+        if (attendee.getMobile() == null) {
+            user.setErrorMsg("Attendee's phone number cannot be empty.");
+            return false; 
+        }
+        
+        String number = attendee.getMobile();
+        
+        if (!number.matches("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$")) {
+            user.setErrorMsg("Attendee's phone number is not valid in USA.");
+            return false;
+        }
+        if (previousMobile != null && !number.equals(previousMobile) && attendeeDAO.hasMobileExisted(number)) {
+            user.setErrorMsg("This number is currently used by another attendee, please try another number.");
+            return false;
+        } 
+        return true;
+    }
+    
+    private boolean isQuantityValid(Attendee attendee, User user) {
+        if (attendee.getQuantity() == null) return false;
+        
+        int quantity = Integer.parseInt(attendee.getQuantity());
+        
+        if (1 > quantity || quantity > 5) {
+            user.setErrorMsg("Please enter a valid quantity of people.");
+        	return false;
+        }
+        return true;
     }
 }

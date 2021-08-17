@@ -30,7 +30,7 @@
       </form:form>
     </section>
     <c:set var="errorMsg" scope="session" value="${user.errorMsg}"/>  
-    <c:out value="${errorMsg}"/> 
+    <p style="color: red"><c:out value="${errorMsg}"/></p>
   </header>
   <footer>&#169; Zack Cheng 2021 &#124; &#9993; zacktcheng@gmail.com</footer>
 </body>

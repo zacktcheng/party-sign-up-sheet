@@ -27,7 +27,8 @@ public class SignupSheetController {
     
     @GetMapping("/")
     public String showWaitlist(Model model) {    
-        if (!model.containsAttribute("user")) {
+    	user.setErrorMsg("");
+    	if (!model.containsAttribute("user")) {
             model.addAttribute("user", user);
         }
         List<Attendee> attendees = attendeeService.loadAttendees();
@@ -40,6 +41,9 @@ public class SignupSheetController {
     public String addAttendee(Model model) {
         Attendee attendee = new Attendee();
         model.addAttribute("attendee", attendee);
+        if (!model.containsAttribute("user")) {
+            model.addAttribute("user", user);
+        }
         return "updateSignupSheet";
     }
     
@@ -60,7 +64,7 @@ public class SignupSheetController {
             return "redirect:/";
         }
         user.setErrorMsg("Incorrect password. Please try again.");
-        return "adminSignin";
+        return "redirect:/adminSignin";
     }
     
     @GetMapping("/adminSignout")
@@ -72,14 +76,23 @@ public class SignupSheetController {
     @PostMapping("/updateSignupSheet")
     public String updateSignupSheet(Attendee attendee, Model model) {
         System.out.println(attendee);
-        if (attendeeService.isAttendeeInfoValid(attendee, user)) {
-        	if (attendee.getId() == 0) {
-                attendeeService.saveAttendee(attendee);
-            } else {
-                attendeeService.updateAttendee(attendee);
-            }
-        	return "redirect:/";	
+        if (!model.containsAttribute("user")) {
+            model.addAttribute("user", user);
         }
+        if (attendee.getId() == 0) {
+            if (attendeeService.isAttendeeInfoValid(attendee, user, attendeeMobile)) {
+                attendeeService.saveAttendee(attendee);
+                user.setErrorMsg("");
+                return "redirect:/";
+            }
+            return "redirect:/addAttendee";
+        }
+        if (attendeeService.isAttendeeInfoValid(attendee, user, attendeeMobile)) {
+            attendeeService.updateAttendee(attendee);
+            user.setErrorMsg("");
+            return "redirect:/";
+        }
+        model.addAttribute("attendee", attendee);
         return "updateSignupSheet";
     }
     
@@ -87,9 +100,13 @@ public class SignupSheetController {
     public String verifyAttendee(@RequestParam("AttendeeId") int id, @RequestParam("AttendeeMobile") String mobile, Model model) {
         attendeeId = id;
         attendeeMobile = mobile;
+        if (!model.containsAttribute("user")) {
+            model.addAttribute("user", user);
+        }
         if (user.isInputPasswordValid()) {
             Attendee attendeeToUpdate = attendeeService.getAttendee(id);
             model.addAttribute("attendee", attendeeToUpdate);
+            user.setErrorMsg("");
             return "updateSignupSheet";
         }
         model.addAttribute("attendee", new Attendee());
@@ -101,10 +118,11 @@ public class SignupSheetController {
         if (attendee.getMobile().equals(attendeeMobile)) {
             Attendee attendeeToUpdate = attendeeService.getAttendee(attendeeId);
             model.addAttribute("attendee", attendeeToUpdate);
+            user.setErrorMsg("");
             return "updateSignupSheet";
         }
         user.setErrorMsg("Incorrect phone number. Please try again.");
-        return "verifyAttendee";
+        return "redirect:/verifyAttendee?AttendeeId=" + attendeeId + "&AttendeeMobile=" + attendeeMobile;
     }
     
     @GetMapping("/deleteAttendee")
